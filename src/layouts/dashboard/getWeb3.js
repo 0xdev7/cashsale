@@ -23,21 +23,29 @@ const GetWeb3 = () => {
       setWeb3(instance);
     }, []);
     return web3;
-  };   
+  };
+
 const ConnectBtn = () => {
     const [web3d,setWeb3d] = useState()
     const [ethaddr,setEthaddr] = useState()
     const [isAuth,setIsAuth] = useState(false)   
 
     const getUserAccount = async () => {
+      const truncate = (str) => {
+        const pretrunc = str.substring(0,5)
+        const posttrunc = str.substring(37,42)
+        const truncstr = `${pretrunc}.....${posttrunc}`
+  
+        return truncstr
+      }
         if (window.ethereum) {
           try {
-            await window.ethereum.request({ method: 'eth_accounts' });
+            await window.ethereum.enable()
             const web3 = new Web3(window.ethereum)
             setWeb3d(web3)
             setIsAuth(true)
             web3.eth.getAccounts().then(accounts => {
-              console.log("Hello")
+              setEthaddr(truncate(accounts.toString()))
             });
           } catch (error) {
             console.error(error);
@@ -66,7 +74,7 @@ const ConnectBtn = () => {
         return(
             <Box sx={{ ml: 2 }}>
             <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-              0xcfd......a3f6b
+              {ethaddr}
             </Typography>
             <Button
                  variant="filled"
