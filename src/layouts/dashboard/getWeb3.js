@@ -72,7 +72,6 @@ const ConnectBtn = () => {
                  variant="filled"
                  color="primary"
                  onClick={async() => {
-                     await window.ethereum.disconnect()
                      setIsAuth(false)
                  }}
             >Disconnect</Button>
