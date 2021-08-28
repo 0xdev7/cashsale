@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 // material
 import { alpha, experimentalStyled as styled } from '@material-ui/core/styles';
@@ -16,7 +16,7 @@ import { MHidden } from '../../components/@material-extend';
 //
 import sidebarConfig from './SidebarConfig';
 import { DocIcon } from '../../assets';
-
+import { ConnectBtn, GetWeb3 } from './getWeb3';
 // ----------------------------------------------------------------------
 
 const DRAWER_WIDTH = 280;
@@ -52,7 +52,6 @@ DashboardSidebar.propTypes = {
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const { pathname } = useLocation();
-  const { user } = useAuth();
 
   useEffect(() => {
     if (isOpenSidebar) {
@@ -72,23 +71,14 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
       </Box>
 
       <Box sx={{ mb: 2, mx: 2.5 }}>
-        <Link underline="none" component={RouterLink} to={PATH_DASHBOARD.user.account}>
           <AccountStyle>
-            <Box sx={{ ml: 2 }}>
-              <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                0xcfd......a3f6b
-              </Typography>
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                Disconnect
-              </Typography>
-            </Box>
+            <ConnectBtn />
           </AccountStyle>
-        </Link>
       </Box>
 
       <NavSection navConfig={sidebarConfig} />
 
-      <Box sx={{ flexGrow: 1 }} />
+      <Box sx={{ flexGrow: 1}} />
 
       <Box sx={{ px: 2.5, pb: 3, mt: 10 }}>
         <DocStyle>
